@@ -1,10 +1,10 @@
-export function getAllUsers ({ commit, dispatch }, {selectedUser}) {
+export function getAllUsers ({ commit, dispatch }, selectedUserId) {
     fetch('https://jsonplaceholder.typicode.com/users')
     .then(response => response.json())
     .then(users => {
         commit('setAllUsers', users)
-        if(selectedUser) {
-            dispatch('User/setSelectedUser', {userId: selectedUser}, { root: true })
+        if(selectedUserId) {
+            dispatch('User/setSelectedUser', {userId: selectedUserId}, { root: true })
 
         }
     })
@@ -15,6 +15,6 @@ export function setSelectedUser ({commit, dispatch, rootState}, { userId }) {
     if(user) {
         commit('setSelectedUserData', user)
     } else {
-        dispatch('User/getAllUsers', {selectedUser: userId}, { root: true })
+        dispatch('User/getAllUsers', userId, { root: true })
     }
 }
